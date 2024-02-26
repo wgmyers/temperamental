@@ -98,6 +98,8 @@ const synth = function synth() {
 
   let audio_context;
   let volume = 0.1;
+  let note_el;
+  let freq_el;
 
   function init() {
     // create web audio api context
@@ -105,6 +107,11 @@ const synth = function synth() {
 
     // create temperament
     temperament.init();
+
+    // get note and frequency elements so we can report
+    // NB - Should we really be putting display stuff in here? Probably not.
+    note_el = document.getElementById("note");
+    freq_el = document.getElementById("freq");
   }
 
   // _init_osc
@@ -163,6 +170,9 @@ const synth = function synth() {
       console.warn(`Can't get frequency for note ${note}`);
     } else {
       _play(freq, duration);
+      // NB We really ought to return these and set UI in caller
+      note_el.innerHTML = note;
+      freq_el.innerHTML = freq.toFixed(4).toString();
     }
   }
 
