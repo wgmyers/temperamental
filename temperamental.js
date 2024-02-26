@@ -110,7 +110,16 @@ const synth = function synth() {
   // _init_osc
   // Looks like we need to create a new oscillator for each note, because
   // you cannot use them again after 'stop' ? Weird huh.
-  function _init_osc() {
+  // Set up a simple ADSR envelope while we're here
+  function _init_osc(duration) {
+
+    const minvol = 0.00001;
+    const attack = 0.2; // These must sum to 1
+    const decay = 0.2;
+    const sustain = 0.4;
+    const release = 0.2; // This one not actually used, implied by other two
+    const decaylev = 0.9; // Level we decay to after attack
+
     // create Oscillator node
     const oscillator = audio_context.createOscillator();
     oscillator.type = "sine";
@@ -121,9 +130,15 @@ const synth = function synth() {
     oscillator.connect(gainNode);
     gainNode.connect(audio_context.destination);
 
-    gainNode.gain.value = volume; // Do we need all three of these?
-    gainNode.gain.minValue = volume;
+    gainNode.gain.value = minvol; // Do we need all three of these?
+    gainNode.gain.minValue = minvol;
     gainNode.gain.maxValue = volume;
+
+    // Stupid adsr envelope
+    gainNode.gain.exponentialRampToValueAtTime(volume, audio_context.currentTime + (duration * attack));
+    gainNode.gain.exponentialRampToValueAtTime(volume * decaylev, audio_context.currentTime + (duration * attack) + (duration * decay));
+    gainNode.gain.linearRampToValueAtTime(volume * decaylev, audio_context.currentTime + (duration * sustain) + (duration * attack) + (duration * decay));
+    gainNode.gain.exponentialRampToValueAtTime(minvol, audio_context.currentTime + duration);
 
     return oscillator;
   }
@@ -131,7 +146,7 @@ const synth = function synth() {
   // _play
   // Play a note of given frequency and duration
   function _play(freq, duration = 1) {
-    oscillator = _init_osc();
+    oscillator = _init_osc(duration);
     console.log(`Playing a note at ${freq}Hz...`)
     oscillator.frequency.setValueAtTime(freq, audio_context.currentTime);
     oscillator.start(0);
@@ -166,7 +181,7 @@ const keyboard = function keyboard() {
   function init() {
     keys = document.getElementById("keyboard");
     for (const key of keys.children) {
-      key.addEventListener("click", () => { synth.play(key.id, 0.5) });
+      key.addEventListener("pointerdown", () => { synth.play(key.id, 0.5) });
     }
   }
 
