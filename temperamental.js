@@ -147,7 +147,7 @@ const synth = function synth() {
     if (freq == 0) {
       console.warn(`Can't get frequency for note ${note}`);
     } else {
-      play(freq, duration);
+      _play(freq, duration);
     }
   }
 
@@ -158,6 +158,23 @@ const synth = function synth() {
 
 }();
 
+// keyboard
+// We have a hardwired HTML piano keyboard in a li with id 'keyboard'
+// Each key needs an event listener bound to it to play the right note
+const keyboard = function keyboard() {
+
+  function init() {
+    keys = document.getElementById("keyboard");
+    for (const key of keys.children) {
+      key.addEventListener("click", () => { synth.play(key.id, 0.5) });
+    }
+  }
+
+  return {
+    init: init
+  }
+}();
+
+
 synth.init();
-synth.play("C4");
-synth.play("G4");
+keyboard.init();
