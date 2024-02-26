@@ -2,6 +2,9 @@
  * temperamental.js
  */
 
+// temperament
+// Sets up a hash with entries for each note on an 88 key piano
+// Precalculates frequencies for them given a base note of A4 and temperament type
 const temperament = function temperament() {
 
   let a4;
@@ -10,14 +13,12 @@ const temperament = function temperament() {
   const notes = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab'];
 
   // init
-  // Take a frequency to use as A4
-  // This defaults to 440Hz
-  // Also takea temperament type, so later we can add things other than 'equal'
+  // Take a frequency to use as A4, defaulting to 440Hz
+  // Also take a temperament type
   function init(base = 440, type='equal') {
     a4 = base;
     a0 = a4 / 16;
-    // We calculate twelve notes straight away according to the given temperament
-    // Later we can use these to return frequencies in the correct octave
+
     // For now, we only know about equal temperament
     switch(type) {
       case 'equal':
@@ -32,8 +33,7 @@ const temperament = function temperament() {
   }
 
   // init_equal
-  // Populate our piano hash with 88 notes
-  // Use equal temperament
+  // Populate our piano hash with 88 notes in equal temperament
   // We can multiply base freq by 2^(1/12) to get this
   // FIXME: for now, we only know about flats, not sharps.
   // We _could_ fix that here with duplicates, or we could translate sharps to
@@ -68,7 +68,7 @@ const temperament = function temperament() {
   }
 
   // get-note
-  // Return a note from the piano hash
+  // Return a frequency from the piano hash
   // If note does not exist, complain to console and return 0
   // FIXME: if we don't put duplicates in the hash to handle sharps, we could
   // translate sharps to flats here instead.
@@ -90,6 +90,10 @@ const temperament = function temperament() {
   }
 }();
 
+// synth
+// A hugely minimal synth
+// Uses the WebAudio API to emit pure sine waves at a given pitch and duration
+// Uses the temperament code above for temperament
 const synth = function synth() {
 
   let audio_context;
@@ -124,7 +128,9 @@ const synth = function synth() {
     return oscillator;
   }
 
-  function play(freq, duration = 1) {
+  // _play
+  // Play a note of given frequency and duration
+  function _play(freq, duration = 1) {
     oscillator = _init_osc();
     console.log(`Playing a note at ${freq}Hz...`)
     oscillator.frequency.setValueAtTime(freq, audio_context.currentTime);
@@ -132,7 +138,11 @@ const synth = function synth() {
     oscillator.stop(audio_context.currentTime + duration)
   }
 
-  function play_note(note, duration = 1) {
+  // play
+  // Take a note in standard pitch/octave notation, eg A4, B3 etc
+  // Convert to frequency and play it
+  // Also take duration in seconds (for now)
+  function play(note, duration = 1) {
     freq = temperament.get_note(note);
     if (freq == 0) {
       console.warn(`Can't get frequency for note ${note}`);
@@ -144,13 +154,10 @@ const synth = function synth() {
   return {
     init: init,
     play: play,
-    play_note: play_note,
-    pure_fifth: pure_fifth,
-    even_fifth: even_fifth
   };
 
 }();
 
 synth.init();
-synth.play_note("C4");
-synth.play_note("G4");
+synth.play("C4");
+synth.play("G4");
