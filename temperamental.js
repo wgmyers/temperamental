@@ -12,6 +12,7 @@ const temperament = function temperament() {
   // init
   // Take a frequency to use as A4
   // This defaults to 440Hz
+  // Also takea temperament type, so later we can add things other than 'equal'
   function init(base = 440, type='equal') {
     a4 = base;
     a0 = a4 / 16;
