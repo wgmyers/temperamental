@@ -24,6 +24,7 @@ Pythagorean temperament calculated with a start note of C.
 * You can't yet change the start note of Pythagorean temperament.
 * A is always 440Hz for now, but sure, why not be able to fiddle with this too?
 * A better keyboard that understands holding a key down as well as pressing one
+* Even more temperaments
 
 ## Flaw
 
