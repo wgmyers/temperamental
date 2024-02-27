@@ -8,6 +8,9 @@ Using Philip Zastrow's css piano from here: https://codepen.io/zastrow/pen/kxdYd
 
 A little modification (fix alignment, add more keys, remove external image dep) - fine for now.
 
-4. Implement a different temperament system
-5. Implement a way of switching between temperaments
-6. Implement more temperament systems
+4. DONE Implement a different temperament system
+5. DONE Implement a way of switching between temperaments
+6. Make UI more pretty - fonts, controls etc
+7. Implement more temperament systems
+8. Improve keyboard
+9. Make mobile friendly

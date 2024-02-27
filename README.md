@@ -7,3 +7,49 @@ systems - see https://johncarlosbaez.wordpress.com/2023/10/13/perfect-fifths-in-
 
 It's all very well but I need to _hear_ what is going on to have a hope of
 understanding.
+
+## Currently Implemented
+
+We have a simple keyboard running from C3 to E5 playing a stupidly simple synth
+with no sustain whatsoever.
+
+By default we are in equal temperament, but there is a toggle to switch to a
+Pythagorean temperament calculated with a start note of C.
+
+## Not Yet Implemented
+
+* Does it work on mobile? Doubtful.
+* You can't yet change the start note of Pythagorean temperament.
+* A is always 440Hz for now, but sure, why not be able to fiddle with this too?
+* A better keyboard that understands holding a key down as well as pressing one
+
+## Flaw
+
+I have a bit of a cloth ear, so I can't really hear the difference between the
+current two temperaments. Maybe you can?
+
+It's quite possible that my temperament-defining code is buggy. How would I know?
+So far it seems to correlate with what other people on the internet say things
+should be, but it's also possible that I have Not Yet Actually Understood what
+I am doing in some fundamental way.
+
+##  Thanks
+
+Thanks to John Carlos Baez for explaining temperament systems well enough that
+I felt the urgent need to build this in order to hear what was going on, even
+though actually it turns out so far that I can't, really.
+
+Thanks also to Philip Zastrow, whose CSS piano I borrowed, with modification,
+from the orginal CodePen over here: https://codepen.io/zastrow/pen/kxdYdk
+
+Thank you for reading down this far.
+
+You probably want a go on Temperamental, right?
+
+I should probably upload it somewhere.
+
+Meanwhile, here's the code. Pure JS, bit oldschool because so am I, no npm, no
+dependencies, no external anything, just download and run locally using your
+favourite webserver.
+
+You'll need a browser that implements the WebAudio API, though, obvs.
