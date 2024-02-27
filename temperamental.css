@@ -88,3 +88,9 @@
  ul li:last-child {
    border-radius:0 5px 5px 5px
  }
+
+  #tempset {
+    width: 10em;
+    text-align: left;
+    margin: auto;
+  }

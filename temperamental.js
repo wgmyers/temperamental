@@ -8,7 +8,6 @@
 const temperament = function temperament() {
 
   let a4;
-  let a0;
   let piano = {};
   const notes = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab'];
 
@@ -16,10 +15,16 @@ const temperament = function temperament() {
   // Take temperament type and a pivot note for temperaments that need them
   // Also take a frequency to use as A4, defaulting to 440Hz
   function init(type = 'equal', pivot = 'C', base = 440) {
-    a4 = base;
-    a0 = a4 / 16;
+    set_temp(type, pivot, base);
+  }
 
-    // For now, we only know about equal temperament
+  // set_temp
+  // A separate function now so we can call it without calling init
+  // Not that we do anything else in init just yet, but we might.
+  // Tidy. I'm being tidy.
+  function set_temp(type, pivot = 'C', base = 440) {
+    a4 = base;
+    piano = {};
     switch(type) {
       case 'equal':
         _init_equal();
@@ -32,7 +37,6 @@ const temperament = function temperament() {
     }
 
     console.log(`Initialised temperament type: ${type}`);
-
   }
 
   // init_pythag
@@ -82,7 +86,7 @@ const temperament = function temperament() {
       }
     }
 
-    console.dir(piano);
+    // console.dir(piano);
 
     // Then copy those over to the rest of the piano
     // This time we get a bit of an extended piano, but fine.
@@ -112,6 +116,7 @@ const temperament = function temperament() {
   // sake of 0.0000001 of a Hz, we'll not bother.
   function _init_equal() {
     const equal_mult = 2**(1/12);
+    const a0 = a4 / 16; // more for clarity than necessity
 
     let last_freq = a0;
     let octave = 0;
@@ -155,7 +160,8 @@ const temperament = function temperament() {
 
   return {
     init: init,
-    get_note: get_note
+    get_note: get_note,
+    set_temp: set_temp
   }
 }();
 
@@ -258,6 +264,7 @@ const synth = function synth() {
 // keyboard
 // We have a hardwired HTML piano keyboard in a li with id 'keyboard'
 // Each key needs an event listener bound to it to play the right note
+// Other UI elements also get event listeners here. We should rename this UI maybe?
 const keyboard = function keyboard() {
 
   function init() {
@@ -265,6 +272,13 @@ const keyboard = function keyboard() {
     for (const key of keys.children) {
       key.addEventListener("pointerdown", () => { synth.play(key.id, 0.5) });
     }
+
+    // Temperament selectors
+    equal_select = document.getElementById("equal");
+    equal_select.addEventListener("change", () => { temperament.set_temp('equal')});
+
+    pythag_select = document.getElementById("pythagorean");
+    pythag_select.addEventListener("change", () => { temperament.set_temp('pythagorean')});
   }
 
   return {
