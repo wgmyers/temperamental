@@ -13,9 +13,9 @@ const temperament = function temperament() {
   const notes = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab'];
 
   // init
-  // Take a frequency to use as A4, defaulting to 440Hz
-  // Also take a temperament type
-  function init(base = 440, type='equal') {
+  // Take temperament type and a pivot note for temperaments that need them
+  // Also take a frequency to use as A4, defaulting to 440Hz
+  function init(type = 'equal', pivot = 'C', base = 440) {
     a4 = base;
     a0 = a4 / 16;
 
@@ -24,11 +24,80 @@ const temperament = function temperament() {
       case 'equal':
         _init_equal();
         break;
+      case 'pythagorean':
+        _init_pythag(pivot);
+        break;
       default:
         console.warn(`Unknown temperament: ${type}`)
     }
 
     console.log(`Initialised temperament type: ${type}`);
+
+  }
+
+  // init_pythag
+  // For Pythagorean tuning, we take perfect 3/2 fifths around the circle of
+  // fifths leaving one horribly out of tune fifth to join them.
+  // We call the start note in the cycle the 'pivot' b/c I have no better ideas.
+  // Also, we start from a reference A=440 b/c otherwise how does it work at all?
+  function _init_pythag(pivot) {
+    const up_mult = 3/2;
+    const down_mult = 2/3;
+    const fifths_cycle = ['A', 'E', 'B', 'Gb', 'Db', 'Ab', 'Eb', 'Bb', 'F', 'C', 'G', 'D'];
+
+    // First calculate the frequencies for octave 4 starting at A
+    let last_freq = a4;
+    const p_freqs = {};
+    // First we go round the cycle forwards
+    for(const note of fifths_cycle) {
+      name = note + "4";
+      if (note == "A") {
+        piano[name] = last_freq;
+        continue;
+      } else if (note == pivot) {
+        break; // NB - if pivot is A we never need to break early
+      }
+      last_freq *= up_mult;
+      // Stay in the right octave
+      if (['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb'].includes(note)) {
+        last_freq /= 2;
+      }
+      piano[name] = last_freq;
+    }
+    // We've hit the pivot, so now we need to go round the cycle backwards
+    // UNLESS pivot was actually A
+    if (pivot != "A") {
+      last_freq = a4; // Come back to our fixed A=440
+      for(const note of fifths_cycle.reverse()) {
+        name = note + "4";
+        last_freq *= down_mult;
+        // Stay in the right octave
+        if (['F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B' ].includes(note)) {
+          last_freq *= 2;
+        }
+        piano[name] = last_freq;
+        if(note == pivot) {
+          break;
+        }
+      }
+    }
+
+    console.dir(piano);
+
+    // Then copy those over to the rest of the piano
+    // This time we get a bit of an extended piano, but fine.
+    for(const note of notes) {
+      last_freq = piano[note + "4"];
+      for(const octave of [5,6,7,8]) {
+        last_freq *= 2;
+        piano[note + octave.toString()] = last_freq;
+      }
+      last_freq = piano[note + "4"];
+      for(const octave of [3,2,1,0]) {
+        last_freq /= 2;
+        piano[note + octave.toString()] = last_freq;
+      }
+    }
 
   }
 
@@ -101,12 +170,15 @@ const synth = function synth() {
   let note_el;
   let freq_el;
 
-  function init() {
+  // Take temperament type to set up temperament, default to 'equal'
+  // FIXME: Should take all of temperament.init's params, no? Or do we just
+  // add a reset temperament method to handle that?
+  function init(type = 'equal') {
     // create web audio api context
     audio_context = new (window.AudioContext || window.webkitAudioContext)();
 
     // create temperament
-    temperament.init();
+    temperament.init(type);
 
     // get note and frequency elements so we can report
     // NB - Should we really be putting display stuff in here? Probably not.
@@ -201,5 +273,5 @@ const keyboard = function keyboard() {
 }();
 
 
-synth.init();
+synth.init('pythagorean');
 keyboard.init();
