@@ -287,5 +287,5 @@ const keyboard = function keyboard() {
 }();
 
 
-synth.init('pythagorean');
+synth.init();
 keyboard.init();
