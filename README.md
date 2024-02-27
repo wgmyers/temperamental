@@ -8,6 +8,8 @@ systems - see https://johncarlosbaez.wordpress.com/2023/10/13/perfect-fifths-in-
 It's all very well but I need to _hear_ what is going on to have a hope of
 understanding.
 
+[Have a go on it here](https://www.conniptions.org/temperamental/)
+
 ## Currently Implemented
 
 We have a simple keyboard running from C3 to E5 playing a stupidly simple synth
@@ -33,7 +35,17 @@ So far it seems to correlate with what other people on the internet say things
 should be, but it's also possible that I have Not Yet Actually Understood what
 I am doing in some fundamental way.
 
-##  Thanks
+## Run It Yourself
+
+This is the result of two night's Bee In Bonnet and looks it.
+
+Not polished, very new, probably terrible. Pure JS, bit oldschool because so am I,
+no npm, no dependencies, no external anything, just download and run locally using
+your favourite webserver.
+
+You'll need a browser that implements the WebAudio API, though, obvs.
+
+## Thanks
 
 Thanks to John Carlos Baez for explaining temperament systems well enough that
 I felt the urgent need to build this in order to hear what was going on, even
@@ -43,13 +55,3 @@ Thanks also to Philip Zastrow, whose CSS piano I borrowed, with modification,
 from the orginal CodePen over here: https://codepen.io/zastrow/pen/kxdYdk
 
 Thank you for reading down this far.
-
-You probably want a go on Temperamental, right?
-
-I should probably upload it somewhere.
-
-Meanwhile, here's the code. Pure JS, bit oldschool because so am I, no npm, no
-dependencies, no external anything, just download and run locally using your
-favourite webserver.
-
-You'll need a browser that implements the WebAudio API, though, obvs.
