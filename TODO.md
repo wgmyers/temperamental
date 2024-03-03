@@ -10,7 +10,28 @@ A little modification (fix alignment, add more keys, remove external image dep) 
 
 4. DONE Implement a different temperament system
 5. DONE Implement a way of switching between temperaments
-6. Make UI more pretty - fonts, controls etc
-7. Implement more temperament systems
-8. Improve keyboard
-9. Make mobile friendly
+
+6. Add more controls:
+
+* Set pivot note for Pythagorean temperament (do other temperaments have the same?)
+* Set value of A4
+* Volume control
+
+7. Make UI more pretty / usable
+
+* Suitable font/s
+* Pretty controls
+* Light / dark mode
+* Keyboard bindings
+* Help / about page
+* Mobile friendliness
+
+8. Implement more temperament systems
+
+* See https://johncarlosbaez.wordpress.com/2024/02/19/well-temperaments-part-5/
+* There are _many_ more
+
+9. Improve keyboard
+
+* Hold note while key pressed
+* Different kinds of tone?
