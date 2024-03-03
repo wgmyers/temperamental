@@ -43,3 +43,7 @@ A little modification (fix alignment, add more keys, remove external image dep) 
 * Separate UI code from logic properly
 * Make it easier to add new temperaments
 * Separate temperament stuff into reusable library?
+
+11. Demo mode
+
+* Add way of playing short tune starting on arbitrary note to demonstrate good and bad keys in various temperaments
