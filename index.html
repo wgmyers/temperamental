@@ -40,8 +40,8 @@
       <li id="E5" class="white e"></li>
     </ul>
   </div>
-  <div>
-    <fieldset id="tempset">
+  <div class="controls">
+    <fieldset class="control" id="tempset">
       <legend>Temperament</legend>
       <div>
         <input type="radio" name="temperament" value="equal" id="equal" checked />
@@ -52,10 +52,13 @@
         <label for="pythagorean">Pythagorean</label>
       </div>
     </fieldset>
-    <p id="note"></p>
-    <p id="freq"></p>
+    <fieldset class="control" id="lastnote">
+      <legend>Last note</legend>
+      <p>Note: <span id="note"></span></p>
+      <p>Freq: <span id="freq"></span></p>
+    </fieldset>
   </div>
   <script src="temperamental.js"></script>
-  <p>Version 0.0.2 - <a href="https://github.com/wgmyers/temperamental">Github repo</a></p>
+  <p>Version 0.0.2b - <a href="https://github.com/wgmyers/temperamental">Github repo</a></p>
 </body>
 </html>
