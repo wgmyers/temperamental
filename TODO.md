@@ -35,3 +35,10 @@ A little modification (fix alignment, add more keys, remove external image dep) 
 
 * Hold note while key pressed
 * Different kinds of tone?
+
+10. Code tidy
+
+* Tests, lint etc
+* Separate UI code from logic properly
+* Make it easier to add new temperaments
+* Separate temperament stuff into reusable library?
