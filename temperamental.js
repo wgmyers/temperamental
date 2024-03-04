@@ -286,6 +286,7 @@ const keyboard = function keyboard() {
     pythag_select = document.getElementById("pythagorean");
     pythag_select.addEventListener("change", () => { temperament.set_temp('pythagorean')});
 
+    // Controls
     volume_control = document.getElementById("volume_control");
     volume_control.addEventListener("change", () => { synth.set_vol(volume_control.value) });
   }
