@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+* Put last played note in own box
+* Add volume control
+
 ## 0.0.2 - 2024-02-27
 
 * Fix bug where temperament and toggle were out of sync on initial page load

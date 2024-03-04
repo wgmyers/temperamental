@@ -172,7 +172,7 @@ const temperament = function temperament() {
 const synth = function synth() {
 
   let audio_context;
-  let volume = 0.1;
+  let volume = 0.5;
   let note_el;
   let freq_el;
 
@@ -254,9 +254,15 @@ const synth = function synth() {
     }
   }
 
+  function set_vol(vol) {
+    volume = vol;
+    console.log(`Setting volume to ${vol}`);
+  }
+
   return {
     init: init,
     play: play,
+    set_vol: set_vol,
   };
 
 }();
@@ -279,6 +285,9 @@ const keyboard = function keyboard() {
 
     pythag_select = document.getElementById("pythagorean");
     pythag_select.addEventListener("change", () => { temperament.set_temp('pythagorean')});
+
+    volume_control = document.getElementById("volume_control");
+    volume_control.addEventListener("change", () => { synth.set_vol(volume_control.value) });
   }
 
   return {

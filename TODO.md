@@ -15,7 +15,7 @@ A little modification (fix alignment, add more keys, remove external image dep) 
 
 * Set pivot note for Pythagorean temperament (do other temperaments have the same?)
 * Set value of A4
-* Volume control
+* DONE Volume control
 * Octave control
 
 7. Make UI more pretty / usable
