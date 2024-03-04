@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.0.3 - 2024-03-04
 
 * Put last played note in own box
 * Add volume control
