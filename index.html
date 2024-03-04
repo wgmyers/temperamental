@@ -55,8 +55,13 @@
     <fieldset class="control" id="settings">
       <legend>Settings</legend>
       <div>
+        <label for="volume">Volume:</label>
         <input type="range" id="volume_control" name="volume" min="0.01" max="1" step="0.01" />
-        <label for="volume">Volume</label>
+      </div>
+      <div>
+        <label for="a4">Pitch of A4:</label>
+        <input type="number" id="a4" name="a4" min="420" max="460" value="440" required />
+        <p id="a4-error" class="error"></p>
       </div>
     </fieldset>
     <fieldset class="control" id="lastnote">

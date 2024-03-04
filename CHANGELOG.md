@@ -4,6 +4,7 @@
 
 * Put last played note in own box
 * Add volume control
+* Add control to change pitch of a4
 
 ## 0.0.2 - 2024-02-27
 

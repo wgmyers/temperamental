@@ -273,6 +273,13 @@ const synth = function synth() {
 // Other UI elements also get event listeners here. We should rename this UI maybe?
 const keyboard = function keyboard() {
 
+  const settings = {
+    type: 'equal',
+    a4: 440,
+    pivot: 'C',
+    volume: 0.5,
+  };
+
   function init() {
     keys = document.getElementById("keyboard");
     for (const key of keys.children) {
@@ -281,14 +288,43 @@ const keyboard = function keyboard() {
 
     // Temperament selectors
     equal_select = document.getElementById("equal");
-    equal_select.addEventListener("change", () => { temperament.set_temp('equal')});
+    equal_select.addEventListener("change", () => { _update_temp('equal')});
 
     pythag_select = document.getElementById("pythagorean");
-    pythag_select.addEventListener("change", () => { temperament.set_temp('pythagorean')});
+    pythag_select.addEventListener("change", () => { _update_temp('pythagorean')});
 
     // Controls
     volume_control = document.getElementById("volume_control");
-    volume_control.addEventListener("change", () => { synth.set_vol(volume_control.value) });
+    volume_control.addEventListener("change", () => { _update_volume(volume_control.value) });
+
+    a4_control = document.getElementById("a4");
+    a4_control.addEventListener("change", () => { _update_a4(a4_control) });
+  }
+
+  function _check_a4_validity(input_ctrl) {
+    if(isNaN(input_ctrl.value) || input_ctrl.value < 420 || input_ctrl.value > 460) {
+      document.getElementById("a4-error").innerHTML = "A4 must be a numeric value between 420 and 460";
+      return false;
+    }
+    document.getElementById("a4-error").innerHTML = "";
+    return true;
+  }
+
+  function _update_a4(input_ctrl) {
+    if (_check_a4_validity(input_ctrl)) {
+      settings['a4'] = parseFloat(input_ctrl.value, 10);
+      temperament.set_temp(settings['type'], settings['pivot'], settings['a4']);
+    }
+  }
+
+  function _update_volume(vol) {
+    settings['volume'] = vol;
+    synth.set_vol(settings['volume']);
+  }
+
+  function _update_temp(temp) {
+    settings['type'] = temp;
+    temperament.set_temp(settings['type'], settings['pivot'], settings['a4']);
   }
 
   return {

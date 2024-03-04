@@ -100,3 +100,12 @@
     text-align: left;
     margin: auto;
   }
+
+  #settings {
+    width: 25em;
+  }
+
+  .error {
+    color: red;
+    font-size: 0.75em;
+  }
