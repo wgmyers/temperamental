@@ -90,7 +90,9 @@
  }
 
   .controls {
+    width: 72em;
     display: flex;
+    margin: auto;
   }
 
   .control {
