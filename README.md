@@ -18,13 +18,16 @@ with no sustain whatsoever.
 By default we are in equal temperament, but there is a toggle to switch to a
 Pythagorean temperament calculated with a start note of C.
 
+There's a volume control and you can set the value of A4 between 420Hz and 460Hz,
+in case you like non-standard pitch settings.
+
 ## Not Yet Implemented
 
-* Does it work on mobile? Doubtful.
+* Does it work on mobile? Sort of but not really. I need to improve this.
 * You can't yet change the start note of Pythagorean temperament.
-* A is always 440Hz for now, but sure, why not be able to fiddle with this too?
 * A better keyboard that understands holding a key down as well as pressing one
 * Even more temperaments
+* A pretty UI
 
 ## Flaw
 
@@ -38,7 +41,7 @@ I am doing in some fundamental way.
 
 ## Run It Yourself
 
-This is the result of two night's Bee In Bonnet and looks it.
+This is the result of three night's Bee In Bonnet and looks it.
 
 Not polished, very new, probably terrible. Pure JS, bit oldschool because so am I,
 no npm, no dependencies, no external anything, just download and run locally using
