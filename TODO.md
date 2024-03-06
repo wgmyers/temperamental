@@ -13,7 +13,7 @@ A little modification (fix alignment, add more keys, remove external image dep) 
 
 6. Add more controls:
 
-* Set pivot note for Pythagorean temperament (do other temperaments have the same?)
+* DONE Set pivot note for Pythagorean temperament (do other temperaments have the same?)
 * DONE Set value of A4
 * DONE Volume control
 * Octave control

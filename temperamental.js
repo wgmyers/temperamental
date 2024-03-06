@@ -37,6 +37,9 @@ const temperament = function temperament() {
     }
 
     console.log(`Initialised temperament type: ${type}`);
+    if (type == 'pythagorean') {
+      console.log(`Pivot note: ${pivot}`);
+    }
   }
 
   // init_pythag
@@ -297,8 +300,11 @@ const keyboard = function keyboard() {
     volume_control = document.getElementById("volume_control");
     volume_control.addEventListener("change", () => { _update_volume(volume_control.value) });
 
-    a4_control = document.getElementById("a4");
+    a4_control = document.getElementById("a4_control");
     a4_control.addEventListener("change", () => { _update_a4(a4_control) });
+
+    pivot_control = document.getElementById("pivot_control");
+    pivot_control.addEventListener("change", () => { _update_pivot(pivot_control.value) });
   }
 
   function _check_a4_validity(input_ctrl) {
@@ -315,6 +321,11 @@ const keyboard = function keyboard() {
       settings['a4'] = parseFloat(input_ctrl.value, 10);
       temperament.set_temp(settings['type'], settings['pivot'], settings['a4']);
     }
+  }
+
+  function _update_pivot(pivot) {
+    settings['pivot'] = pivot;
+    temperament.set_temp(settings['type'], settings['pivot'], settings['a4']);
   }
 
   function _update_volume(vol) {
